@@ -1,0 +1,19 @@
+{
+  "rest": {
+    "RestGenerator": {
+      "name": "AI Assistant",
+      "uri": "https://ah-assistant-service-tst.kaas.nonprd.k8s.ah.technology/v1/assistant/chat/16611078",
+      "method": "post",
+      "headers": {
+        "X-Authorization": "eyJraWQiOiIxMDQwNzM0NjUyLTEzOTg1MTYwODMiLCJhbGciOiJSUzI1NiJ9.eyJjbGkiOiJhcHBpZSIsImRvbWFpbiI6Ik5MRCIsInNjbiI6IjEiLCJtaWQiOiIxNjYxMTA3OCIsInByb2ZpbGUiOiJOTEQiLCJtZGMiOjE3Mzg1OTU4NjcxMzksIm1waCI6LTE1ODU4MTEzNDcsInJlZyI6dHJ1ZSwiYjJiIjpmYWxzZSwibXNwIjpbIkRJR0lUQUxfU0FWSU5HUyIsIkxJRkVTVFlMRSIsIkxPWUFMVFkiLCJNRU1CRVIiLCJQRVJTT05BTF9PRkZFUlMiXSwianNpZCI6Im0tMjAyNTAyMTYxNjAwNTM4NDktOWRmZjdhN2Y2OTAiLCJpYXQiOjE3Mzk3MTgwNTQsImV4cCI6MTczOTgwNDQ1NCwiaXNzIjoiaWRwOmthYXMtbm9ucHJkIn0.HB8w9qI2vElqCDPlOCZEInJyoNj0dz7EQ1Tpsj_nWKfaMW5QWP9yl6u7KJR6IaPjbFZMypBmdYTZJeNKtBBfGLjpGYNmCvURl2OZ-EVMPIdvIz68yfZQxld6Hkcg69raiFwj6FFrmPWG9W4EfUqrLlsXs6vbjNCqInEVxhvdq0URCxTSI2U39GzZm7pdgth5B4T_L88It5NHUZrQKsNZVTOQUMM5oSRyzgKr7xRqkZFT7CckpTj5j6WEAIYKb_xjyKbdQJRZwqQFj96s-p6srgooK9h0yn9IpKW1jJgzmOIF6ldF-88t1ASpZS50pOKtV6juH_j89waoiy9nf1fb8A",
+        "Accept": "text/event-stream",
+        "Content-Type": "application/json",
+        "x-test-mode": "true"
+      },
+      "req_template_json_object": {
+        "data": "$INPUT"
+      },
+      "response_json": false
+    }
+  }
+}

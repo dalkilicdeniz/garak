@@ -8,6 +8,8 @@ Generic Module for REST API connections
 
 import json
 import logging
+import time
+import re
 from typing import List, Union
 import requests
 
@@ -34,7 +36,7 @@ class RestGenerator(Generator):
         "response_json": False,
         "response_json_field": None,
         "req_template": "$INPUT",
-        "request_timeout": 20,
+        "request_timeout": 40,
         "proxies": None,
         "verify_ssl": True,
     }
@@ -146,6 +148,15 @@ class RestGenerator(Generator):
 
         super().__init__(self.name, config_root=config_root)
 
+    def extract_text_messages(self, text):
+        # Use regex to find all occurrences of 'event:TEXT_MESSAGE' followed by 'data:'
+        messages = re.findall(r"event:TEXT_MESSAGE\ndata:(.*?)\n", text)
+
+        # Join the extracted message parts together into one string
+        full_message = ''.join(messages)
+
+        return full_message
+
     def _validate_env_var(self):
         key_match = "$KEY"
         header_requires_key = False
@@ -185,7 +196,7 @@ class RestGenerator(Generator):
         return output.replace("$INPUT", self.escape_function(text))
 
     # we'll overload IOError as the rate limit exception
-    @backoff.on_exception(backoff.fibo, RateLimitHit, max_value=70)
+    @backoff.on_exception(backoff.expo, IOError, max_tries=4)
     def _call_model(
         self, prompt: str, generations_this_call: int = 1
     ) -> List[Union[str, None]]:
@@ -212,6 +223,8 @@ class RestGenerator(Generator):
             "proxies": self.proxies,
             "verify": self.verify_ssl,
         }
+        time.sleep(2)
+        #print(f"Calling {self.uri} with {req_kArgs}")
         resp = self.http_function(self.uri, **req_kArgs)
 
         if resp.status_code in self.skip_codes:
@@ -234,57 +247,26 @@ class RestGenerator(Generator):
             )
 
         if str(resp.status_code)[0] == "4":
-            raise ConnectionError(
-                f"REST URI client error: {resp.status_code} - {resp.reason}, uri: {self.uri}"
-            )
+            error_msg = f"REST URI server error: {resp.status_code} - {resp.reason}, uri: {self.uri}"
+            if self.retry_5xx:
+                text_message = "Received 400 " + error_msg
+                return  [text_message]                #raise IOError(error_msg)
+            #raise ConnectionError(
+             #   f"REST URI client error: {resp.status_code} - {resp.reason}, uri: {self.uri}"
+            #)
 
         if str(resp.status_code)[0] == "5":
             error_msg = f"REST URI server error: {resp.status_code} - {resp.reason}, uri: {self.uri}"
             if self.retry_5xx:
-                raise IOError(error_msg)
-            raise ConnectionError(error_msg)
+                text_message = "Received 500 " + error_msg
+                return  [text_message]
+                #raise IOError(error_msg)
+            #raise ConnectionError(error_msg)
 
         if not self.response_json:
-            return [str(resp.text)]
-
-        response_object = json.loads(resp.content)
-
-        response = [None]
-
-        # if response_json_field starts with a $, treat is as a JSONPath
-        assert (
-            self.response_json
-        ), "response_json must be True at this point; if False, we should have returned already"
-        assert isinstance(
-            self.response_json_field, str
-        ), "response_json_field must be a string"
-        assert (
-            len(self.response_json_field) > 0
-        ), "response_json_field needs to be complete if response_json is true; ValueError should have been raised in constructor"
-        if self.response_json_field[0] != "$":
-            if isinstance(response_object, list):
-                response = [item[self.response_json_field] for item in response_object]
-            else:
-                response = [response_object[self.response_json_field]]
-        else:
-            field_path_expr = jsonpath_ng.parse(self.response_json_field)
-            responses = field_path_expr.find(response_object)
-            if len(responses) == 1:
-                response_value = responses[0].value
-                if isinstance(response_value, str):
-                    response = [response_value]
-                elif isinstance(response_value, list):
-                    response = response_value
-            elif len(responses) > 1:
-                response = [r.value for r in responses]
-            else:
-                logging.error(
-                    "RestGenerator JSONPath in response_json_field yielded nothing. Response content: %s"
-                    % repr(resp.content)
-                )
-                return [None]
-
-        return response
+            text_message = self.extract_text_messages(str(resp.text))
+            #print(text_message)
+            return [text_message]
 
 
 DEFAULT_CLASS = "RestGenerator"
