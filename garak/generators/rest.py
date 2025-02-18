@@ -223,9 +223,17 @@ class RestGenerator(Generator):
             "proxies": self.proxies,
             "verify": self.verify_ssl,
         }
+        try:
+            resp = self.http_function(self.uri, **req_kArgs)
+        except UnicodeEncodeError as uee:
+            # only RFC2616 (latin-1) is guaranteed
+            # don't print a repr, this might leak api keys
+            logging.error(
+                "Only latin-1 encoding supported by HTTP RFC 2616, check headers and values for unusual chars",
+                exc_info=uee,
+            )
+            raise BadGeneratorException from uee
         time.sleep(2)
-        #print(f"Calling {self.uri} with {req_kArgs}")
-        resp = self.http_function(self.uri, **req_kArgs)
 
         if resp.status_code in self.skip_codes:
             logging.debug(
