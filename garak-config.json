@@ -2,10 +2,10 @@
   "rest": {
     "RestGenerator": {
       "name": "AI Assistant",
-      "uri": "https://ah-assistant-service-tst.kaas.nonprd.k8s.ah.technology/v1/assistant/chat/16611078",
+      "uri": "https://pr-151-ah-assistant-service-tst.kaas.nonprd.k8s.ah.technology/v1/assistant/chat/16611078",
       "method": "post",
       "headers": {
-        "X-Authorization": "eyJraWQiOiIxMDQwNzM0NjUyLTEzOTg1MTYwODMiLCJhbGciOiJSUzI1NiJ9.eyJjbGkiOiJhcHBpZSIsImRvbWFpbiI6Ik5MRCIsInNjbiI6IjEiLCJtaWQiOiIxNjYxMTA3OCIsInByb2ZpbGUiOiJOTEQiLCJtZGMiOjE3Mzg1OTU4NjcxMzksIm1waCI6LTE1ODU4MTEzNDcsInJlZyI6dHJ1ZSwiYjJiIjpmYWxzZSwibXNwIjpbIkRJR0lUQUxfU0FWSU5HUyIsIkxJRkVTVFlMRSIsIkxPWUFMVFkiLCJNRU1CRVIiLCJQRVJTT05BTF9PRkZFUlMiXSwianNpZCI6Im0tMjAyNTAyMTYxNjAwNTM4NDktOWRmZjdhN2Y2OTAiLCJpYXQiOjE3Mzk3MTgwNTQsImV4cCI6MTczOTgwNDQ1NCwiaXNzIjoiaWRwOmthYXMtbm9ucHJkIn0.HB8w9qI2vElqCDPlOCZEInJyoNj0dz7EQ1Tpsj_nWKfaMW5QWP9yl6u7KJR6IaPjbFZMypBmdYTZJeNKtBBfGLjpGYNmCvURl2OZ-EVMPIdvIz68yfZQxld6Hkcg69raiFwj6FFrmPWG9W4EfUqrLlsXs6vbjNCqInEVxhvdq0URCxTSI2U39GzZm7pdgth5B4T_L88It5NHUZrQKsNZVTOQUMM5oSRyzgKr7xRqkZFT7CckpTj5j6WEAIYKb_xjyKbdQJRZwqQFj96s-p6srgooK9h0yn9IpKW1jJgzmOIF6ldF-88t1ASpZS50pOKtV6juH_j89waoiy9nf1fb8A",
+        "X-Authorization": "eyJraWQiOiIyMTAwOTU3MzUtMTczNjIyOTU3MSIsImFsZyI6IlJTMjU2In0.eyJjbGkiOiJhcHBpZSIsImRvbWFpbiI6Ik5MRCIsInNjbiI6IjEiLCJtaWQiOiIxNjYxMTA3OCIsInByb2ZpbGUiOiJOTEQiLCJtZGMiOjE3Mzg1OTU4NjcxMzksIm1waCI6LTE1ODU4MTEzNDcsInJlZyI6dHJ1ZSwiYjJiIjpmYWxzZSwibXNwIjpbIkRJR0lUQUxfU0FWSU5HUyIsIkxJRkVTVFlMRSIsIkxPWUFMVFkiLCJNRU1CRVIiLCJQRVJTT05BTF9PRkZFUlMiXSwianNpZCI6Im0tMjAyNTAyMjExMzI0NTM4NjAtNTc3YjRiZTlmYjEiLCJpYXQiOjE3NDAxNDA2OTQsImV4cCI6MTc0MDIyNzA5NCwiaXNzIjoiaWRwOmthYXMtbm9ucHJkIn0.UIHTa4PkHo3xlqT5E5sv81FcMjzUi1jbKz34hp39_gE7c9U-h7jd30-M4kUyLaioCdT75iVAW6V0gyG-meV4J7XB9Qsv67JFvyLziakcFiDdo6hZkGgGbTgerMvkbY66bAhVw8f-HVHCPMx79q_Phj84xhvhldYg8DkKRjaEsIr_XhAidDF2Sb3tKMoTGMEbbFM3mX9-zEErYHSEEYFebenoVbD4DGETpxTZmpe4zoNCWjtwYCLJM8MqkNROut4D97tQIJTa21kvosI1RYtA8KsUDHwhPqR3P1XR4X_nHfHYiPU0kAcLsdmkp562JZGK-pcYtxillPcwv9Xq0vZVxg",
         "Accept": "text/event-stream",
         "Content-Type": "application/json",
         "x-test-mode": "true"
